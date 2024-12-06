@@ -1,0 +1,68 @@
+show dbs
+use myDatabase;
+
+1)InsertMany data in products
+db.products.insertMany([
+    {
+        name:"Labtop",price:1200,stock:50,category:"Electronics"
+    },
+    {
+        name:"Phone",price:800,stock:150,category:"Electronics"
+    },
+    {
+        name:"Shoes",price:100,stock:200,category:"Apparel"
+    },
+    {
+        name:"Watch",price:250,stock:80,category:"Accessories"
+    }
+    ]);
+
+
+2)InsertOne data in products
+ db.products.insertOne({ name: "Tablet", price: 400, stock: 120, category: "Electronics" });
+
+3) FindOne data from products
+db.products.findOne({ name: "Laptop" });
+
+4)Find data from products
+db.products.find();
+
+5)Using $gt operater
+db.products.find({price:{$gt:500}});
+
+6)using $lt operater
+db.products.find({ stock: { $lt: 100 } });
+
+7)using $lte operater
+db.products.find({ stock: { $lte: 100 } })
+
+8)using $gte operator:
+db.products.find({product_price:{"$gte":500}})
+
+9)using $not operator:
+db.products.find({product_price:{$not:{"$gte":400,"$lte":800}}})
+
+
+10)using updateMany,$set  operator:
+db.products.updateMany({category:"Electronics"},{ $set:{discount:"10%}});
+
+11)using updateOne,$set  operator:
+db.products.updateOne({name:"Tablet"},{$set:{stock:100}});
+
+12)using deleteMany ,$or operater
+db.db.products.deleteMany({ category: "Apparel" });
+
+13)using deleteOne
+ db.products.deleteOne({name:"Watch"});
+
+14)using Count 
+db.products.find({product_price:{$not:{"$gte":400,"$lte":800}}}).count();
+
+15)using countDocuments
+db.products.countDocuments();
+
+16)using $eq operator
+db.products.find({ category: { $eq: "Electronics" } });
+
+17)using  aggregate  
+db.products.aggregate([{$group:{_id:"$category",totalStock:{$sum:"$stock"}}}]);
